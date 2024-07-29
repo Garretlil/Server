@@ -17,11 +17,7 @@ type ResponseUserId struct {
 func Authentication(w http.ResponseWriter, r *http.Request) {
 	// Получаем из JSON данные о пользователе
 	var user User
-	//user := User{
-	//	Id:    1,
-	//	Name:  "John Doe",
-	//	Email: "john.doe@example.com",
-	//}
+
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
