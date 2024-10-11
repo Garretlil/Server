@@ -8,7 +8,7 @@ import (
 )
 
 func getCatalog(w http.ResponseWriter, r *http.Request) {
-	// Создаем данные для JSON объекта
+
 	rows, err := database.Query("select * from products ")
 	if err != nil {
 		log.Println(err)
@@ -42,9 +42,7 @@ func getCatalog(w http.ResponseWriter, r *http.Request) {
 
 	jsonData, err := json.Marshal(products)
 
-	// Устанавливаем заголовок Content-Type
 	w.Header().Set("Content-Type", "application/json")
 
-	// Отправляем JSON данные
 	fmt.Fprint(w, string(jsonData))
 }

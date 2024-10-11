@@ -6,7 +6,6 @@ import (
 )
 
 func newOrder(w http.ResponseWriter, r *http.Request) {
-	// Создаем данные для JSON объекта
 	var order Order
 	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil {
@@ -27,7 +26,7 @@ func newOrder(w http.ResponseWriter, r *http.Request) {
 			tx.Commit()
 		}
 	}()
-	//создание в бд и получение id нового заказа
+
 	var orderID int
 
 	stmt, err := tx.Prepare("INSERT INTO orders DEFAULT VALUES RETURNING id")
@@ -44,7 +43,7 @@ func newOrder(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	// Формируем ответ
+
 	response := Responses{OrderID: orderID}
 	json.NewEncoder(w).Encode(response)
 
