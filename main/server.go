@@ -34,7 +34,9 @@ func main() {
 
 	http.HandleFunc("/", getCatalog)
 	http.HandleFunc("/orders", newOrder)
-	http.HandleFunc("/auth", Authentication)
+	http.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
+		Authentication(w, r, db)
+	})
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		Registration(w, r, db) // db передается как замыкание
 	})
