@@ -35,11 +35,12 @@ func main() {
 	http.HandleFunc("/", getCatalog)
 	http.HandleFunc("/orders", newOrder)
 	http.HandleFunc("/auth", Authentication)
-	http.HandleFunc("/register", Registration)
+	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+		Registration(w, r, db) // db передается как замыкание
+	})
 	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "About Page")
 	})
-
 	//start server
 	fmt.Println("Server is listening...")
 	http.ListenAndServe(":8181", nil)

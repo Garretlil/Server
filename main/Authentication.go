@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	Id    int    `json:"Id" `
+	Id    int    `json:"Id"`
 	Name  string `json:"Name"`
 	Email string `json:"Email"`
 }
@@ -17,7 +17,6 @@ type ResponseUserId struct {
 func Authentication(w http.ResponseWriter, r *http.Request) {
 	// Получаем из JSON данные о пользователе
 	var user User
-
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -33,9 +32,7 @@ func Authentication(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 	// Формируем ответ
 	response := ResponseUserId{Id: userID}
 	json.NewEncoder(w).Encode(response)
-
 }
