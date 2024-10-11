@@ -32,7 +32,9 @@ func main() {
 	database = db
 	defer db.Close()
 
-	http.HandleFunc("/", getCatalog)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		GetCatalog(w, r, db)
+	})
 	http.HandleFunc("/orders", newOrder)
 	http.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
 		Authentication(w, r, db)

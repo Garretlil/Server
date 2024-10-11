@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func getCatalog(w http.ResponseWriter, r *http.Request) {
+func GetCatalog(w http.ResponseWriter, r *http.Request, database DB) {
 
 	rows, err := database.Query("select * from products ")
 	if err != nil {
